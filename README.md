@@ -1,8 +1,23 @@
 # Magento2 Module Select2 Ui Component
  
 Select2 UI Component for Magento 2
+
+## Documentation
+
+https://select2.github.io
   
 ## Usage
+
+You can control the select2 options with the xml in the select2 tags
+
+Example Options
+ ```xml
+<item name="select2" xsi:type="array">
+     <item name="maximumSelectionLength" xsi:type="string">3</item>
+     <item name="tags" xsi:type="string">true</item>
+     <item name="allowClear" xsi:type="string"">true</item>
+</item>
+ ```
 
 Multiselect 
  
@@ -66,3 +81,6 @@ Select
       </fieldset>
   </form>
   ```
+  
+## Credits
+Inspired by https://github.com/weprovide/magento2-module-select2-uicomponent  
