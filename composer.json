@@ -1,0 +1,25 @@
+{
+    "name": "experius/module-formselect2",
+    "description": "",
+    "license": "proprietary",
+    "authors": [
+        {
+            "email": "info@mage2gen.com",
+            "name": "Mage2Gen"
+        },
+        {
+            "email": "derrick@experius.nl",
+            "name": "Derrick Heesbeen"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Experius\\FormSelect2\\": ""
+        }
+    }
+}
