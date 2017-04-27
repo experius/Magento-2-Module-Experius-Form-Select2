@@ -14,16 +14,43 @@ define([
 
     ko.bindingHandlers.select2 = {
         init: function(element, valueAccessor, allBindings, viewModel, bindingContext){
-
             var $element = $(element);
             var options = ko.unwrap(valueAccessor());
 
+            if(options.ajax){
+
+                var ajaxOptions = {
+                    ajax: {
+                        url: "/define_url_in_xml",
+                        dataType: 'json',
+                        delay: 250,
+                        type: 'POST',
+                        data: function (params) {
+                            return {
+                                q: params.term, // search term
+                                page: params.page,
+                                form_key: window.FORM_KEY
+                            };
+                        },
+                        processResults: function (data, params) {
+                            params.page = params.page || 1;
+                            return {
+                                results: data.items,
+                                pagination: {
+                                    more: (params.page * 30) < data.total_count
+                                }
+                            };
+                        },
+                        cache: false
+                    },
+                    minimumInputLength: 1,
+                }
+
+                ajaxOptions.ajax.url = options.ajax.url;
+                options = $.extend(options,ajaxOptions);
+            }
+
             $element.select2(options);
-
-            $(element).on('select2:selecting select2:unselecting', function () {
-                console.log('change')
-            });
-
 
         }
     }
@@ -41,6 +68,37 @@ define([
 
             return this;
         },
+
+        normalizeData: function (value) {
+            console.log(value);
+
+            this.getCurrentValue(value);
+
+            return value;
+        },
+
+        getCurrentValue: function(value){
+
+            if(value && this.select2().ajax) {
+                var self = this;
+
+                $.post(this.select2().ajax.url, { id: value, form_key: window.FORM_KEY},function (data) {
+                    self.addCurrentValueToOptions(data, value);
+                });
+            }
+        },
+
+        addCurrentValueToOptions: function(data,value){
+
+            var self = this;
+
+            $.each(data.items, function(key,item) {
+                self.options.push({'label': item.text, 'labeltitle': item.text, 'value': item.id});
+            });
+
+            this.value(value);
+
+        }
 
     });
 });

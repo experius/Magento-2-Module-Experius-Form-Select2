@@ -12,7 +12,7 @@ define([
 ], function (_, registry, Abstract, ko, $, select2) {
     'use strict';
 
-    ko.bindingHandlers.select2 = {
+    ko.bindingHandlers.multiselect2 = {
         init: function(element, valueAccessor, allBindings, viewModel, bindingContext){
 
             var $element = $(element);

@@ -81,6 +81,18 @@ Select
       </fieldset>
   </form>
   ```
+
+Ajax Search Select 
+
+```xml
+<item name="select2" xsi:type="array">
+    <item name="maximumSelectionLength" xsi:type="string">1</item>
+    <item name="tags" xsi:type="string">true</item>
+    <item name="ajax" xsi:type="array">
+        <item name="url" xsi:type="string">/storemanager/formselect2/ajax/search</item>
+    </item>
+</item>
+```
   
 ## Credits
 Inspired by https://github.com/weprovide/magento2-module-select2-uicomponent  
