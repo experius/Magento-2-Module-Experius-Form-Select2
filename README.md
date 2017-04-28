@@ -89,7 +89,7 @@ Ajax Search Select
     <item name="maximumSelectionLength" xsi:type="string">1</item>
     <item name="tags" xsi:type="string">true</item>
     <item name="ajax" xsi:type="array">
-        <item name="url" xsi:type="string">/storemanager/formselect2/ajax/search</item>
+        <item name="url" xsi:type="string">/admin/formselect2/ajax/search</item>
     </item>
 </item>
 ```

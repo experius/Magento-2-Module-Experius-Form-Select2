@@ -52,6 +52,14 @@ define([
 
             $element.select2(options);
 
+            $element.on("select2:select", function (e) {
+
+            });
+
+            $element.on("select2:unselect", function (e) {
+
+            });
+
         }
     }
 
@@ -70,7 +78,6 @@ define([
         },
 
         normalizeData: function (value) {
-            console.log(value);
 
             this.getCurrentValue(value);
 
@@ -83,20 +90,48 @@ define([
                 var self = this;
 
                 $.post(this.select2().ajax.url, { id: value, form_key: window.FORM_KEY},function (data) {
-                    self.addCurrentValueToOptions(data, value);
+                    self.addCurrentValueToOptions(data.items, value);
                 });
             }
         },
 
-        addCurrentValueToOptions: function(data,value){
+        addCurrentValueToOptions: function(items,value){
 
             var self = this;
 
-            $.each(data.items, function(key,item) {
-                self.options.push({'label': item.text, 'labeltitle': item.text, 'value': item.id});
+            var options = [];
+
+            $.each(items, function(key,item) {
+                options.push({'label': item.text, 'labeltitle': item.text, 'value': item.id});
             });
 
-            this.value(value);
+            this.setOptions(options);
+
+            if(value) {
+                this.value(value);
+            }
+
+        },
+
+        /* Preview fix for use in filters */
+        change: function(att, event){
+
+            var $element = $(event.target);
+
+            if(this.select2().ajax) {
+
+                var items = [];
+                var values = $element.val();
+
+                if(values) {
+                    $.each(values, function(index,value) {
+                        var label = $element.find("option[value="+value+"]").text();
+                        items.push({'text':label,'id':value})
+                    });
+                }
+                this.addCurrentValueToOptions(items,false);
+
+            }
 
         }
 
