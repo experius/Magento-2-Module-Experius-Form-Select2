@@ -46,8 +46,11 @@ define([
                     minimumInputLength: 1,
                 }
 
-                ajaxOptions.ajax.url = options.ajax.url;
+                var searchType = (typeof options.ajax.search === 'undefined') ? '' : '/search/' + options.ajax.search;
+
+                ajaxOptions.ajax.url = options.ajax.url + searchType;
                 options = $.extend(options,ajaxOptions);
+
             }
 
             $element.select2(options);
@@ -113,6 +116,16 @@ define([
 
         },
 
+        getPreview: function () {
+            var value = this.value(),
+                option = this.indexedOptions[value],
+                preview = option ? option.label : '';
+
+            this.preview(preview);
+
+            return preview;
+        },
+
         /* Preview fix for use in filters */
         change: function(att, event){
 
@@ -129,6 +142,7 @@ define([
                         items.push({'text':label,'id':value})
                     });
                 }
+
                 this.addCurrentValueToOptions(items,false);
 
             }

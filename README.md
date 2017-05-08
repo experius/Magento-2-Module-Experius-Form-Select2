@@ -90,9 +90,31 @@ Ajax Search Select
     <item name="tags" xsi:type="string">true</item>
     <item name="ajax" xsi:type="array">
         <item name="url" xsi:type="string">/admin/formselect2/ajax/search</item>
+        <item name="search" xsi:type="string">ProductSearch</item> <!-- Uses virtual model productsearch -->
     </item>
 </item>
 ```
   
+Ajax Virtual Search Model Example (di.xml)
+
+```xml
+<virtualType name="Experius\FormSelect2\Model\Virtual\ProductSearch" type="Experius\Formselect2\Model\Search">
+    <arguments>
+        <argument name="searchData" xsi:type="array">
+            <item name="modelClass" xsi:type="string">Magento\Catalog\Model\Product</item>
+            <item name="searchFields" xsi:type="array">
+                <item name="sku" xsi:type="string">sku</item>
+                <item name="name" xsi:type="string">name</item>
+            </item>
+            <item name="modelType" xsi:type="string">eav</item>
+            <item name="modelKey" xsi:type="string">entity_id</item>
+            <item name="sortByAttribute" xsi:type="string">name</item>
+        </argument>
+    </arguments>
+</virtualType>
+```
+  
+  
 ## Credits
 Inspired by https://github.com/weprovide/magento2-module-select2-uicomponent  
+Jquery select2 lib by https://select2.github.io/

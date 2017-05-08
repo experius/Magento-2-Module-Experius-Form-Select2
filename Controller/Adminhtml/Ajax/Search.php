@@ -10,13 +10,7 @@ class Search extends \Magento\Backend\App\Action
 
     protected $jsonHelper;
 
-    protected $searchFields = ['firstname','lastname'];
-
-    protected $modelClass = 'Magento\Customer\Model\Customer';
-
-    protected $modelType = 'eav';
-
-    protected $modelKey = 'entity_id';
+    protected $search;
 
     /**
      * Constructor
@@ -28,9 +22,11 @@ class Search extends \Magento\Backend\App\Action
         \Magento\Backend\App\Action\Context $context,
         \Magento\Framework\View\Result\PageFactory $resultPageFactory,
         \Magento\Framework\Json\Helper\Data $jsonHelper
-    ) {
+    ){
+
         $this->resultPageFactory = $resultPageFactory;
         $this->jsonHelper = $jsonHelper;
+
         parent::__construct($context);
     }
 
@@ -45,45 +41,20 @@ class Search extends \Magento\Backend\App\Action
 
             $id = $this->getRequest()->getParam('id');
             $query = $this->getRequest()->getParam('q');
-            $page = ($this->getRequest()->getParam('param')) ? $this->getRequest()->getParam('param') : 1;
-            $model = $this->_objectManager->create($this->modelClass);
-            $type = $this->modelType;
+            $page = ($this->getRequest()->getParam('page')) ? $this->getRequest()->getParam('page') : 1;
+
+            if($this->getRequest()->getParam('search')){
+                $this->search = $this->_objectManager->create('Experius\\FormSelect2\\Model\\Virtual\\' . $this->getRequest()->getParam('search'));
+            } else {
+                $this->search = $this->_objectManager->create('Experius\\FormSelect2\\Model\\Search',['searchData'=>'']);
+            }
 
             if($query) {
-
-                $collection = $model->getCollection();
-                $searchFields = $this->searchFields;
-
-                $conditions = [];
-                $eavFilters = [];
-
-                foreach ($searchFields as $searchField) {
-                    $conditions[] = ['like' => '%' . $query . '%'];
-                    $eavFilters[] =['attribute'=>$searchField,'like'=>'%' . $query . '%'];
-                }
-
-                if($type=='eav') {
-                    $collection->addFieldToFilter($eavFilters);
-                } else {
-                    $collection->addFieldToFilter(
-                        $searchFields,
-                        [
-                            $conditions
-                        ]
-                    );
-                }
-
-                $collection->setPageSize(31);
-                $collection->setCurPage($page);
-
-                foreach($collection as $item){
-                    $items[] = ['id'=>$item->getData($this->modelKey),'text'=>$this->getItemText($item)];
-                }
+                $items = $this->search->searchCollection($query,$page);
             }
 
             if($id){
-                $model = $this->_objectManager->create('Magento\Customer\Model\Customer')->load($id,$this->modelKey);
-                $items[] = ['id'=>$model->getData($this->modelKey),'text'=>$this->getItemText($model)];
+                $items = $this->search->loadInitialValue($id);
             }
 
             if($query || $id){

@@ -1,4 +1,19 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 
+    <virtualType name="Experius\FormSelect2\Model\Virtual\ProductSearch" type="Experius\Formselect2\Model\Search">
+        <arguments>
+            <argument name="searchData" xsi:type="array">
+                <item name="modelClass" xsi:type="string">Magento\Catalog\Model\Product</item>
+                <item name="searchFields" xsi:type="array">
+                    <item name="sku" xsi:type="string">sku</item>
+                    <item name="name" xsi:type="string">name</item>
+                </item>
+                <item name="modelType" xsi:type="string">eav</item>
+                <item name="modelKey" xsi:type="string">entity_id</item>
+                <item name="sortByAttribute" xsi:type="string">name</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
 </config>
