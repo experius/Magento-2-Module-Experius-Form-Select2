@@ -86,13 +86,4 @@ class Search extends \Magento\Backend\App\Action
             $this->jsonHelper->jsonEncode($response)
         );
     }
-
-    private function getItemText($item){
-        $fields = ['firstname','lastname'];
-        $text = '';
-        foreach($fields as $field){
-            $text .= $item->getData($field) . " ";
-        }
-        return $text;
-    }
 }
