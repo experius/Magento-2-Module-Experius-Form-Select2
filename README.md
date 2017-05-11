@@ -98,20 +98,21 @@ Ajax Search Select
 Ajax Virtual Search Model Example (di.xml)
 
 ```xml
-<virtualType name="Experius\FormSelect2\Model\Virtual\ProductSearch" type="Experius\Formselect2\Model\Search">
-    <arguments>
-        <argument name="searchData" xsi:type="array">
-            <item name="modelClass" xsi:type="string">Magento\Catalog\Model\Product</item>
-            <item name="searchFields" xsi:type="array">
-                <item name="sku" xsi:type="string">sku</item>
-                <item name="name" xsi:type="string">name</item>
-            </item>
-            <item name="modelType" xsi:type="string">eav</item>
-            <item name="modelKey" xsi:type="string">entity_id</item>
-            <item name="sortByAttribute" xsi:type="string">name</item>
-        </argument>
-    </arguments>
-</virtualType>
+  <virtualType name="Experius\FormSelect2\Model\Virtual\ProductSearch" type="Experius\Formselect2\Model\Search">
+         <arguments>
+             <argument name="searchData" xsi:type="array">
+                 <item name="modelCollectionClass" xsi:type="string">Magento\Catalog\Model\ResourceModel\Product\Collection</item>
+                 <item name="modelClass" xsi:type="string">Magento\Catalog\Model\Product</item>
+                 <item name="searchFields" xsi:type="array">
+                     <item name="sku" xsi:type="string">sku</item>
+                     <item name="name" xsi:type="string">name</item>
+                 </item>
+                 <item name="modelType" xsi:type="string">eav</item>
+                 <item name="modelKey" xsi:type="string">entity_id</item>
+                 <item name="sortByAttribute" xsi:type="string">name</item>
+             </argument>
+         </arguments>
+     </virtualType>
 ```
   
   

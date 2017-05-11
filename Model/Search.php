@@ -10,6 +10,8 @@ class Search extends \Magento\Framework\Model\AbstractModel
 
     protected $modelClass = 'Magento\Customer\Model\Customer';
 
+    protected $modelCollectionClass = 'Magento\Customer\Model\ResourceModel\Customer\Collection';
+
     protected $modelType = 'eav';
 
     protected $modelKey = 'entity_id';
@@ -67,13 +69,13 @@ class Search extends \Magento\Framework\Model\AbstractModel
         return $this->objectManager->create($this->modelClass);
     }
 
-    public function getCollection(){
-        return $this->getModel()->getCollection();
+    public function getCollectionModel(){
+        return $this->objectManager->create($this->modelCollectionClass);
     }
 
     public function searchCollection($query,$page){
 
-        $collection = $this->getCollection();
+        $collection = $this->getCollectionModel();
         $searchFields = $this->searchFields;
 
         $conditions = [];
@@ -85,7 +87,7 @@ class Search extends \Magento\Framework\Model\AbstractModel
         }
 
         if($this->modelType=='eav') {
-            $collection->addFieldToFilter($eavFilters);
+            $collection->addAttributeToFilter($eavFilters,null,'left');
         } else {
             $collection->addFieldToFilter(
                 $searchFields,
