@@ -31,6 +31,10 @@ class Search extends \Magento\Framework\Model\AbstractModel
             $this->modelClass = $searchData['modelClass'];
         }
 
+        if(isset($searchData['modelCollectionClass'])){
+            $this->modelCollectionClass = $searchData['modelCollectionClass'];
+        }
+
         if(isset($searchData['searchFields'])){
             $this->searchFields = $searchData['searchFields'];
         }

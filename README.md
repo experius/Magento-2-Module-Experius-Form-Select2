@@ -98,7 +98,7 @@ Ajax Search Select
 Ajax Virtual Search Model Example (di.xml)
 
 ```xml
-  <virtualType name="Experius\FormSelect2\Model\Virtual\ProductSearch" type="Experius\Formselect2\Model\Search">
+  <virtualType name="Experius\FormSelect2\Model\Virtual\ProductSearch" type="Experius\FormSelect2\Model\Search">
          <arguments>
              <argument name="searchData" xsi:type="array">
                  <item name="modelCollectionClass" xsi:type="string">Magento\Catalog\Model\ResourceModel\Product\Collection</item>

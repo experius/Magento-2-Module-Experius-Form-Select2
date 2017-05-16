@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 
-    <virtualType name="Experius\FormSelect2\Model\Virtual\ProductSearch" type="Experius\Formselect2\Model\Search">
+    <virtualType name="Experius\FormSelect2\Model\Virtual\ProductSearch" type="Experius\FormSelect2\Model\Search">
         <arguments>
             <argument name="searchData" xsi:type="array">
                 <item name="modelCollectionClass" xsi:type="string">Magento\Catalog\Model\ResourceModel\Product\Collection</item>
