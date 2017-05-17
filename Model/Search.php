@@ -120,7 +120,10 @@ class Search extends \Magento\Framework\Model\AbstractModel
 
     public function loadInitialValue($key){
         $model = $this->getModel()->load($key,$this->modelKey);
+
         $items[] = ['id'=>$model->getData($this->modelKey),'text'=>$this->getItemText($model)];
+
+        return $items;
     }
 
     private function getItemText($item){

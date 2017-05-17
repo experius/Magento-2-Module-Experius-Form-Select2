@@ -21,11 +21,13 @@ class Search extends \Magento\Backend\App\Action
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
         \Magento\Framework\View\Result\PageFactory $resultPageFactory,
-        \Magento\Framework\Json\Helper\Data $jsonHelper
+        \Magento\Framework\Json\Helper\Data $jsonHelper,
+        \Experius\FormSelect2\Model\Search $search
     ){
 
         $this->resultPageFactory = $resultPageFactory;
         $this->jsonHelper = $jsonHelper;
+        $this->search = $search;
 
         parent::__construct($context);
     }
@@ -45,8 +47,6 @@ class Search extends \Magento\Backend\App\Action
 
             if($this->getRequest()->getParam('search')){
                 $this->search = $this->_objectManager->create('Experius\\FormSelect2\\Model\\Virtual\\' . $this->getRequest()->getParam('search'));
-            } else {
-                $this->search = $this->_objectManager->create('Experius\\FormSelect2\\Model\\Search',['searchData'=>'']);
             }
 
             if($query) {
