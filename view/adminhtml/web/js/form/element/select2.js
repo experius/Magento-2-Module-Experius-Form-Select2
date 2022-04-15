@@ -53,6 +53,10 @@ define([
 
             }
 
+            if (options.initialValue) {
+                $element.select2().val(options.initialValue).trigger('change');
+            }
+
             $element.select2(options);
 
             $element.on("select2:select", function (e) {
@@ -76,6 +80,19 @@ define([
             this._super();
 
             this.observe('select2');
+
+            return this;
+        },
+
+        /** @inheritdoc */
+        setInitialValue: function () {
+            var value = this.getInitialValue();
+
+            if (!_.isString(value)) {
+                this._super();
+            }
+
+            this.select2().initialValue = value;
 
             return this;
         },
